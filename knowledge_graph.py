@@ -8,7 +8,7 @@ import networkx as nx
 from typing import Dict, Set, List, Any
 from collections import defaultdict
 
-from .data_structures import CodeConcept
+from data_structures import CodeConcept
 
 
 class KnowledgeGraph:
