@@ -168,3 +168,16 @@ class MyLLMInterface(LLMInterface):
         response = self.client.complete(prompt.format(concepts=concepts_text))
         return parse_questions_response(response)
 ```
+
+## Others
+
+### Tips
+
+如果误提交了 __pycache__ 怎么办
+
+1. 从 Git 中删除缓存目录（保留本地文件）：
+    ```bash
+    git rm -r --cached */__pycache__  # 删除所有子目录中的 __pycache__
+    git commit -m "Remove __pycache__ from repo"
+    ```
+2. 确保 .gitignore 已正确配置，避免再次误提交。
