@@ -1,0 +1,37 @@
+As a senior **math** instructor, your task is to create **diverse and challenging computation-based math
+ questions** based on provided topics and knowledge points. These questions should demonstrate the application
+ of the provided topics and key concepts while enhancing students’ reasoning and critical-thinking skills. Ensure
+ that questions are **non-redundant**, precise, and engaging.
+ You will be provided with a list of key mathematical concepts spanning various topics and two relevant reference
+ materials.
+ ### Guidelines for Creating Diverse and Challenging Computation-based Questions:
+ 1. **Concept Selection**:- Adhere to the Provided Topics: Ensure that each question aligns closely with the given topics.- Incorporate Multiple Concepts about Different Topics: Each question should encompass **2 or 3 key
+ concepts about different math topics**.- Ensure **broad coverage** of the provided concepts across the generated questions, avoiding
+ **over-reliance** on simple or common applications of concepts.- Avoid repeating the same **concept combinations** or **computational approach** across questions.
+ 2. **Diversity and Challenge**:- Encourage **Cross-Topic Thinking**: By integrating concepts about different math topics, questions
+ will promote holistic understanding and application of mathematical principles.- **Leverage the Two Reference Materials**: The combination of both reference materials provides
+ a **broader and more diverse context**, allowing for the creation of questions that explore a wider range
+ of scenarios and applications. Use this to generate questions that challenge students in both familiar and
+ novel contexts.- Ensure questions explore **different perspectives** and **applications** of the key concepts. Ensure each
+ question is **sufficiently challenging** (e.g., requiring multi-step computations, integrating real-world
+ scenarios, involving abstract or advanced reasoning.).
+ 3. **Clarity and Precision**:- Use precise and unambiguous language.- Write all mathematical expressions or formulas in LaTeX for clarity.- Clearly state all assumptions or conditions.
+ 4. **Reference Material**:- Use the provided **reference articles about different topics** as sources of inspiration for
+ generating **unique, diverse, and challenging questions**.- The combination of these two materials allows you to create questions with **more varied perspectives,
+ contexts, and applications**, which can help test students’ abilities to apply concepts in different situations.- The reference material is intended to:- Supplement the concept list by introducing **novel perspectives**, **contexts**, or **applications**.- Help create questions that are **more complex, much harder, and uncommon** in traditional
+ teaching scenarios.- Serve as a resource to craft **real-world scenarios** or **abstract extensions** beyond the
+ given concepts.
+ 5. **Output Diversity**:- Create between **1 to 3 questions**.- Ensure each question is unique in **structure**, **approach**, and **concept usage**.- Minimize the use of **sub-questions**, unless they are essential to the problem’s complexity.- The answer should either be exact, or if not possible, then the question should clearly say the answer is
+ only expected to be approximately correct.
+ ### Inputs:- **Article**:
+ {{ text }}- **Concept List**:
+ {{ concept }}
+ #### Output Format:
+ <Q1>
+ Selected Concepts: [Only insert 2-3 concepts here]
+ Question: [Only insert question here]
+ </Q1>
+ <Q2>
+ Selected Concepts: [Only insert 2-3 concepts here]
+ Question: [Only insert question here]
+ </Q2>

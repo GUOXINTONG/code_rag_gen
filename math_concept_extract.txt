@@ -1,0 +1,35 @@
+Here is an article crawl from the web, which our classifier has identified as having significant educational value for
+ students learning math.
+ Your task is to analyze this article and extract educational materials, specifically focusing on topics and key
+ concepts that can enhance students’ understanding of mathematics and improve their problem-solving skills.
+ Pay special attention to uncommon but important mathematical concepts that are crucial for a deeper understanding.
+ ## Tasks
+ 1. **Determine Educational Level:**- Identify the appropriate educational level for the article based on its content. Choose from the
+ following options:- Primary School- Middle School- High School- College- Graduate School- Competition- Other
+ 2. **Identify Subject Area:**- Specify the primary subject area of mathematics to which the article belongs (e.g., Calculus,
+ Geometry, Algebra, etc.).
+ 3. **Extract Topics and Key Concepts:**- **Topics:**- List **1 to 5** main topics covered in the article.- Use terms commonly recognized in academia or industry.- **Key Concepts:**- For each identified topic, list **5 to 20** related key concepts.- Ensure these concepts are clearly articulated using standard academic or industry terms.
+ ## Guidelines:- **Terminology:** Use precise and widely recognized academic or industry terminology for subjects, topics, and
+ key concepts to maintain consistency and clarity.- **Educational Level Selection:** If appropriate, restrict the educational level to one of the following: "Primary
+ School", "Middle School", "High School", "College", "Graduate School", or "Competition" to ensure accurate
+ categorization.
+ ## Text
+ {{ text }}
+ ## Output Format
+ <level>Educational Level</level>
+ <subject>Subject Area</subject>
+ <topic> Topics:
+ 1. topic 1
+ 2. topic 2
+ </topic>
+ <key_concept>
+ Key Concepts:
+ 1. topic 1:
+ 1.1. key concept
+ 1.2. key concept
+ ...
+ 2. topic 2:
+ 2.1. key concept
+ ... ...
+ </key_concept>
+ ## Output
