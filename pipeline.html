@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码知识图谱合成数据生成方案</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pipeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .stage {
+            position: relative;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            min-width: 300px;
+        }
+
+        .stage:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .stage-input {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border: 3px solid #f39c12;
+        }
+
+        .stage-kg {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border: 3px solid #16a085;
+            width: 80%;
+        }
+
+        .stage-sample {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border: 3px solid #e67e22;
+            width: 70%;
+        }
+
+        .stage-llm {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #8e44ad;
+            color: white;
+            width: 60%;
+        }
+
+        .stage-quality {
+            background: linear-gradient(135deg, #d63031 0%, #74b9ff 100%);
+            border: 3px solid #e17055;
+            width: 80%;
+        }
+
+        .stage-output {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border: 3px solid #27ae60;
+            width: 70%;
+        }
+
+        .stage-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stage-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .arrow {
+            font-size: 40px;
+            color: #34495e;
+            margin: 10px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .kg-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .kg-node {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #3498db;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .kg-node:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: #2980b9;
+        }
+
+        .kg-node-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .sample-types {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .sample-type {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e74c3c;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .sample-type:hover {
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .feedback-loop {
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 2px;
+            background: #e74c3c;
+            border-radius: 2px;
+        }
+
+        .feedback-loop::before {
+            content: '↑';
+            position: absolute;
+            right: -20px;
+            top: -15px;
+            font-size: 20px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .feedback-loop::after {
+            content: 'Quality Feedback';
+            position: absolute;
+            right: -40px;
+            top: -35px;
+            font-size: 10px;
+            color: #e74c3c;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .side-components {
+            position: absolute;
+            left: -180px;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-component {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #9b59b6;
+            width: 150px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .code-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .concept-tag {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid #3498db;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">代码知识图谱合成数据生成流水线</div>
+        
+        <div class="pipeline">
+            <!-- 输入阶段 -->
+            <div class="stage stage-input">
+                <div class="stage-title">📚 代码语料库输入</div>
+                <div class="stage-content">
+                    <strong>多源代码数据收集:</strong><br>
+                    • GitHub开源项目 (多语言)<br>
+                    • 编程教程和文档<br>
+                    • 算法竞赛题解<br>
+                    • 技术博客和Stack Overflow<br>
+                    • 编程书籍和课程材料
+                </div>
+                <div class="code-concepts">
+                    <div class="concept-tag">Python</div>
+                    <div class="concept-tag">Java</div>
+                    <div class="concept-tag">C++</div>
+                    <div class="concept-tag">JavaScript</div>
+                    <div class="concept-tag">Go</div>
+                    <div class="concept-tag">Rust</div>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- 知识图谱构建 -->
+            <div class="stage stage-kg">
+                <div class="stage-title">🧠 编程知识图谱构建</div>
+                <div class="stage-content">
+                    <strong>自动化概念提取与关系建模</strong>
+                </div>
+                <div class="kg-details">
+                    <div class="kg-node">
+                        <div class="kg-node-title">🔍 代码解析</div>
+                        AST分析<br>
+                        语法结构提取<br>
+                        函数调用关系
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">📋 算法概念</div>
+                        排序/搜索<br>
+                        动态规划<br>
+                        图算法<br>
+                        贪心策略
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">🏗️ 数据结构</div>
+                        数组/链表<br>
+                        树/图<br>
+                        栈/队列<br>
+                        哈希表
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">⚡ 设计模式</div>
+                        创建型模式<br>
+                        结构型模式<br>
+                        行为型模式<br>
+                        架构模式
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">🔧 编程范式</div>
+                        面向对象<br>
+                        函数式编程<br>
+                        并发编程<br>
+                        元编程
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">⚠️ 错误模式</div>
+                        常见Bug<br>
+                        性能问题<br>
+                        安全漏洞<br>
+                        代码异味
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- 概念采样 -->
+            <div class="stage stage-sample">
+                <div class="stage-title">🎯 智能概念采样组合</div>
+                <div class="stage-content">
+                    <strong>基于难度和相关性的概念组合策略</strong><br>
+                    • 多层次难度采样 (初级→高级)<br>
+                    • 跨概念关联组合<br>
+                    • 合理性分析验证
+                </div>
+                <div class="sample-types">
+                    <div class="sample-type">单一概念<br>深度挖掘</div>
+                    <div class="sample-type">概念组合<br>复杂场景</div>
+                    <div class="sample-type">合理性<br>分析验证</div>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- LLM生成 -->
+            <div class="stage stage-llm">
+                <div class="stage-title">🤖 大模型QA生成</div>
+                <div class="stage-content">
+                    <strong>代码问答生成</strong><br>
+                    • 代码理解与解释<br>
+                    • 算法设计与优化<br>
+                    • 调试与错误修复<br>
+                    • 代码重构与改进<br>
+                    • 性能分析与优化
+                </div>
+                <div class="side-components">
+                    <div class="side-component">
+                        🎨 提示工程<br>
+                        模板优化
+                    </div>
+                    <div class="side-component">
+                        📊 难度控制<br>
+                        分层生成
+                    </div>
+                    <div class="side-component">
+                        🔄 多样性<br>
+                        保证机制
+                    </div>
+                </div>
+                <div class="feedback-loop"></div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- 质量控制 -->
+            <div class="stage stage-quality">
+                <div class="stage-title">🔍 质量控制与验证</div>
+                <div class="stage-content">
+                    <strong>多维度质量保证机制</strong><br>
+                    • 代码可执行性验证<br>
+                    • 专家评分与自动评估结合<br>
+                    • 持续学习的质量提升机制
+                </div>
+                <div class="kg-details">
+                    <div class="kg-node">
+                        <div class="kg-node-title">⚡ 可执行性验证</div>
+                        语法检查<br>
+                        编译测试<br>
+                        运行时验证<br>
+                        单元测试
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">👨‍💻 专家评估</div>
+                        代码质量评分<br>
+                        逻辑正确性<br>
+                        最佳实践符合<br>
+                        教学价值评估
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">🤖 自动评估</div>
+                        复杂度分析<br>
+                        代码规范检查<br>
+                        相似性检测<br>
+                        多样性度量
+                    </div>
+                    <div class="kg-node">
+                        <div class="kg-node-title">📈 持续优化</div>
+                        反馈循环<br>
+                        模型微调<br>
+                        质量阈值调整<br>
+                        生成策略优化
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- 输出结果 -->
+            <div class="stage stage-output">
+                <div class="stage-title">✨ 高质量代码QA数据</div>
+                <div class="stage-content">
+                    <strong>Level-4 编程能力提升数据集</strong><br>
+                    • 代码生成与完善<br>
+                    • 算法思维训练<br>
+                    • 调试能力提升<br>
+                    • 架构设计指导<br>
+                    • 最佳实践传授
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            🚀 核心创新点：通过编程知识图谱的结构化表示，实现概念的精准采样和组合，
+            生成涵盖算法、数据结构、设计模式等多维度的高质量合成训练数据
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: rgba(52, 152, 219, 0.1); border-radius: 15px; border: 2px solid #3498db;">
+            <h3 style="color: #2c3e50; text-align: center; margin-bottom: 20px;">🔧 技术实现要点</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <strong>📊 知识图谱构建:</strong><br>
+                    • 使用Tree-sitter进行多语言代码解析<br>
+                    • 基于CodeBERT的语义相似性计算<br>
+                    • Neo4j图数据库存储概念关系
+                </div>
+                <div>
+                    <strong>🎲 采样策略:</strong><br>
+                    • 基于PageRank的概念重要性排序<br>
+                    • 强化学习优化采样权重<br>
+                    • 多样性约束的组合生成
+                </div>
+                <div>
+                    <strong>🎯 质量控制:</strong><br>
+                    • 可执行性自动验证系统<br>
+                    • 专家标注与众包评估<br>
+                    • 基于反馈的迭代优化机制
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
