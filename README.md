@@ -171,6 +171,10 @@ class MyLLMInterface(LLMInterface):
 
 ## Others
 
+### 遗留问题
+
+1. "Scaling Laws of Synthetic Data for Language Models"论文中reference document重复使用，第一次在提取concept，第二次在生成QA时作为text，我们代码的方案也要这么做吗？
+
 ### Tips
 
 如果误提交了 __pycache__ 怎么办
