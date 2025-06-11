@@ -1,0 +1,136 @@
+{
+    "conceptsPools": {
+      "BP": [
+        "Variable declaration and initialization",
+        "Control flow and loops",
+        "Function definition and parameters",
+        "Data type conversion",
+        "Input/output operations",
+        "String manipulation",
+        "Array operations",
+        "Exception handling",
+        "Code documentation",
+        "Debugging techniques"
+      ],
+      "AP": [
+        "Object-oriented design patterns",
+        "Memory management",
+        "Concurrency and multithreading",
+        "Asynchronous programming",
+        "Design patterns implementation",
+        "Code optimization",
+        "Refactoring techniques",
+        "Generic programming",
+        "Functional programming concepts",
+        "Code architecture"
+      ],
+      "SE": [
+        "Requirements analysis",
+        "System architecture design",
+        "Version control integration",
+        "Unit testing frameworks",
+        "Integration testing",
+        "Code review processes",
+        "Continuous integration",
+        "Deployment strategies",
+        "Configuration management",
+        "Technical documentation"
+      ],
+      "DP": [
+        "Data cleaning and preprocessing",
+        "Statistical analysis",
+        "Data visualization",
+        "Pandas operations",
+        "NumPy computations",
+        "Data aggregation",
+        "Time series analysis",
+        "Data export/import",
+        "Missing value handling",
+        "Data validation"
+      ],
+      "MA": [
+        "Linear algebra operations",
+        "Numerical computation",
+        "Algorithm implementation",
+        "Mathematical modeling",
+        "Optimization problems",
+        "Statistical calculations",
+        "Graph theory",
+        "Discrete mathematics",
+        "Probability calculations",
+        "Mathematical visualization"
+      ],
+      "DW": [
+        "User interface design",
+        "API development",
+        "Database integration",
+        "Authentication systems",
+        "Session management",
+        "Form validation",
+        "Responsive design",
+        "State management",
+        "Routing implementation",
+        "Performance optimization"
+      ],
+      "ML": [
+        "Model training and evaluation",
+        "Feature engineering",
+        "Data preprocessing",
+        "Model deployment",
+        "Hyperparameter tuning",
+        "Cross-validation",
+        "Model interpretation",
+        "Pipeline creation",
+        "Performance metrics",
+        "Model monitoring"
+      ],
+      "SC": [
+        "Numerical simulations",
+        "High-performance computing",
+        "Scientical data analysis",
+        "Computational modeling",
+        "Parallel processing",
+        "Scientific visualization",
+        "Numerical methods",
+        "Algorithm optimization",
+        "Scientific libraries",
+        "Performance profiling"
+      ],
+      "DB": [
+        "Query optimization",
+        "Database design",
+        "Transaction management",
+        "Index creation",
+        "Stored procedures",
+        "Database migrations",
+        "Connection pooling",
+        "Data modeling",
+        "Performance tuning",
+        "Backup and recovery"
+      ],
+      "MM": [
+        "Image processing",
+        "Video manipulation",
+        "Audio processing",
+        "File format conversion",
+        "Compression algorithms",
+        "Streaming protocols",
+        "Media metadata handling",
+        "Content delivery",
+        "Format validation",
+        "Quality optimization"
+      ],
+      "OS": [
+        "Process management",
+        "File system operations",
+        "Memory allocation",
+        "System monitoring",
+        "Service management",
+        "Permission handling",
+        "System configuration",
+        "Resource optimization",
+        "Performance monitoring",
+        "System integration"
+      ]
+    }
+  }

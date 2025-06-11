@@ -1,0 +1,59 @@
+{
+    "topicsPool": {
+      "BP": [
+        "FizzBuzz variants",
+        "Command-line todo apps",
+        "Simple text parsers"
+      ],
+      "AP": [
+        "Thread-safe caches",
+        "Plugin systems",
+        "Event-driven architectures"
+      ],
+      "SE": [
+        "Automated build scripts",
+        "Bug-tracker integrations",
+        "Code review bots"
+      ],
+      "DP": [
+        "Sales-data dashboard",
+        "Time-series anomaly detection",
+        "Customer-segmentation clustering"
+      ],
+      "MA": [
+        "Solving quadratic equations",
+        "Matrix determinant & inversion",
+        "Monte Carlo integration"
+      ],
+      "DW": [
+        "CRUD web app with JWT auth",
+        "Desktop note-taking tool",
+        "Responsive CSS layout generator"
+      ],
+      "ML": [
+        "Handwritten digit classifier (MNIST)",
+        "Spam vs. ham email filter",
+        "Recommendation system for movies"
+      ],
+      "SC": [
+        "Fluid dynamics simulation",
+        "Heat-equation PDE solver",
+        "Molecular dynamics mini-engine"
+      ],
+      "DB": [
+        "E-commerce order-tracking schema",
+        "Full-text search implementation",
+        "Sharding a user-profile store"
+      ],
+      "MM": [
+        "Real-time face-detection filter",
+        "Audio equalizer UI",
+        "Video collage creator"
+      ],
+      "OS": [
+        "Simple shell implementation",
+        "In-memory file system",
+        "Priority-inversion demo"
+      ]
+    }
+  }

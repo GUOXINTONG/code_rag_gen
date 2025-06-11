@@ -1,0 +1,136 @@
+{
+    "topicsPool": {
+      "BP": [
+        "Calculator applications",
+        "Text file processors",
+        "Simple games",
+        "Data converters",
+        "Basic utilities",
+        "Command-line tools",
+        "Configuration parsers",
+        "Log file analyzers",
+        "Simple algorithms",
+        "Educational programs"
+      ],
+      "AP": [
+        "Enterprise applications",
+        "Performance optimization",
+        "Scalable architectures",
+        "Complex algorithms",
+        "System integrations",
+        "Advanced data structures",
+        "Concurrent systems",
+        "Memory-efficient solutions",
+        "Cross-platform development",
+        "Legacy system migration"
+      ],
+      "SE": [
+        "Project management tools",
+        "Code quality systems",
+        "Development workflows",
+        "Testing frameworks",
+        "Deployment pipelines",
+        "Documentation systems",
+        "Bug tracking systems",
+        "Release management",
+        "Team collaboration tools",
+        "Software metrics"
+      ],
+      "DP": [
+        "Business intelligence dashboards",
+        "Market research analysis",
+        "Customer behavior analysis",
+        "Financial data analysis",
+        "Sales performance tracking",
+        "Survey data processing",
+        "A/B testing analysis",
+        "Predictive analytics",
+        "Data quality assessment",
+        "Reporting systems"
+      ],
+      "MA": [
+        "Scientific calculators",
+        "Mathematical modeling tools",
+        "Statistical analysis software",
+        "Optimization solvers",
+        "Simulation programs",
+        "Financial calculators",
+        "Engineering calculations",
+        "Research tools",
+        "Educational software",
+        "Computational experiments"
+      ],
+      "DW": [
+        "E-commerce platforms",
+        "Content management systems",
+        "Social media applications",
+        "Productivity tools",
+        "Communication platforms",
+        "Entertainment applications",
+        "Educational platforms",
+        "Business applications",
+        "Portfolio websites",
+        "Dashboard applications"
+      ],
+      "ML": [
+        "Recommendation systems",
+        "Fraud detection systems",
+        "Image recognition applications",
+        "Natural language processing",
+        "Predictive maintenance",
+        "Customer segmentation",
+        "Sentiment analysis",
+        "Chatbot development",
+        "Computer vision systems",
+        "Automated decision systems"
+      ],
+      "SC": [
+        "Climate modeling systems",
+        "Bioinformatics tools",
+        "Physics simulations",
+        "Engineering analysis",
+        "Research data processing",
+        "Computational chemistry",
+        "Astronomy calculations",
+        "Medical imaging",
+        "Environmental monitoring",
+        "Materials science"
+      ],
+      "DB": [
+        "Inventory management systems",
+        "Customer relationship management",
+        "Financial transaction systems",
+        "Content management",
+        "User management systems",
+        "Analytics platforms",
+        "Reporting systems",
+        "Data warehousing",
+        "Archive systems",
+        "Audit trail systems"
+      ],
+      "MM": [
+        "Photo editing applications",
+        "Video streaming platforms",
+        "Audio processing tools",
+        "Media converters",
+        "Content creation tools",
+        "Digital asset management",
+        "Broadcasting systems",
+        "Game development",
+        "Animation tools",
+        "Interactive media"
+      ],
+      "OS": [
+        "System administration tools",
+        "Resource monitoring",
+        "Security management",
+        "Network configuration",
+        "Service orchestration",
+        "System optimization",
+        "Backup solutions",
+        "Performance tuning",
+        "System integration",
+        "Infrastructure management"
+      ]
+    }
+  }

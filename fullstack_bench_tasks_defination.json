@@ -1,0 +1,16 @@
+{
+  "domainDefinitions": {
+    "BP": "Basic programming involves fundamental concepts and skills to write simple computer programs. This typically includes understanding data types, variables, control structures, functions, and basic input/output operations.",
+    "AP": "Advanced programming involves developing complex software solutions and focuses on creating efficient, scalable, and robust applications while implementing sophisticated algorithms, data structures, and design patterns.",
+    "SE": "Software engineering covers the design, development, testing, and maintenance of software systems, and includes tasks of requirements analysis, software architecture design, coding, quality assurance, and project management.",
+    "DP": "Data analysis is the cleaning, processing, and analysis of collected data to discover meaningful patterns and relationships to make data-driven decisions.",
+    "MA": "Mathematical problems involve solving various problems through mathematical methods and theories, covering multiple fields such as algebra, geometry, calculus, number theory, probability, and statistics.",
+    "DW": "Desktop development encompasses a wide range of programming languages, frameworks, and tools to design, build, and maintain user-friendly interfaces and robust backend systems.",
+    "ML": "Machine learning algorithms are developed to learn from data for tasks such as classification, prediction, and pattern recognition.",
+    "SC": "Scientific computing solves complex scientific and engineering problems, which encompasses the tasks of numerical analysis, and high-performance computing to simulate, model, and analyze phenomena across various scientific disciplines.",
+    "DB": "Database includes tasks such as insertion, querying, updating, and deletion, and these tasks are typically performed using query languages such as SQL to ensure efficient storage and retrieval of data.",
+    "MM": "Multimedia involves processing and manipulating various forms of content, including text, images, audio, and video.",
+    "OS": "Operating system includes tasks such as memory management, process scheduling, file system management, and device control, which aims to manage computer hardware and software resources.",
+    "Others": "Apart from the above 11 mainstream application domains, other domains are categorized as 'Others'."
+  }
+}

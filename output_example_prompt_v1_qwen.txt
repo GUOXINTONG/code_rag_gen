@@ -1,0 +1,120 @@
+### Business Context
+
+**Scenario:** You are working on a financial risk management system for a large investment firm. The system uses matrix operations to calculate the covariance matrix of asset returns, which is essential for portfolio optimization and risk assessment. One critical step in this process involves calculating the inverse of the covariance matrix to determine the optimal weights of assets in a portfolio. However, due to the nature of financial data, the covariance matrix can sometimes be singular or nearly singular, making its inversion problematic.
+
+**Technical Requirements:**
+
+1. **Matrix Determinant Calculation:** Before attempting to invert the covariance matrix, compute its determinant to check if the matrix is singular. A zero determinant indicates that the matrix cannot be inverted.
+2. **Matrix Inversion:** If the determinant is non-zero, proceed to invert the matrix. Handle cases where the matrix is close to singular by using numerical stability techniques.
+3. **Error Handling:** Implement robust error handling to manage cases where the matrix is singular or nearly singular.
+4. **Performance Considerations:** Ensure the solution is efficient and can handle large matrices within acceptable time limits.
+5. **Integration:** The solution should integrate seamlessly with an existing data processing pipeline, which provides the covariance matrix as a NumPy array.
+6. **Security Considerations:** Ensure that sensitive financial data is handled securely, avoiding unnecessary copying or exposure.
+7. **Scalability:** Design the solution to scale with larger datasets and potentially distributed computing environments.
+
+### Problem Statement
+
+Develop a Python function that calculates the determinant and inverse of a given covariance matrix. The function should handle singular or nearly singular matrices gracefully and integrate smoothly with an existing data processing pipeline. Ensure the solution is robust, efficient, and secure.
+
+### Solution
+
+```python
+import numpy as np
+from numpy.linalg import det, inv, LinAlgError
+
+def calculate_covariance_matrix_inverse(covariance_matrix):
+    """
+    Calculate the determinant and inverse of a given covariance matrix.
+    
+    Args:
+        covariance_matrix (np.ndarray): A square symmetric positive-definite matrix representing the covariance matrix.
+        
+    Returns:
+        tuple: A tuple containing the determinant and the inverse of the covariance matrix.
+               If the matrix is singular or nearly singular, the inverse will be None.
+    
+    Raises:
+        ValueError: If the input matrix is not square or not symmetric.
+    """
+    # Check if the matrix is square
+    if covariance_matrix.shape[0] != covariance_matrix.shape[1]:
+        raise ValueError("The covariance matrix must be square.")
+    
+    # Check if the matrix is symmetric
+    if not np.allclose(covariance_matrix, covariance_matrix.T):
+        raise ValueError("The covariance matrix must be symmetric.")
+    
+    # Calculate the determinant
+    determinant = det(covariance_matrix)
+    
+    # Handle singular or nearly singular matrices
+    if np.isclose(determinant, 0.0):
+        print("Warning: The covariance matrix is singular or nearly singular. Inverse cannot be computed.")
+        return determinant, None
+    
+    try:
+        # Calculate the inverse of the covariance matrix
+        inverse_matrix = inv(covariance_matrix)
+    except LinAlgError as e:
+        print(f"Error: Unable to compute the inverse of the covariance matrix. {e}")
+        return determinant, None
+    
+    return determinant, inverse_matrix
+
+# Example usage
+if __name__ == "__main__":
+    # Example covariance matrix
+    cov_matrix = np.array([[2.0, 1.0], [1.0, 2.0]])
+    
+    # Calculate determinant and inverse
+    determinant, inverse_matrix = calculate_covariance_matrix_inverse(cov_matrix)
+    
+    print(f"Determinant: {determinant}")
+    if inverse_matrix is not None:
+        print(f"Inverse Matrix:\n{inverse_matrix}")
+    else:
+        print("Inverse Matrix: None")
+
+# Test cases
+def test_calculate_covariance_matrix_inverse():
+    # Test with a regular matrix
+    cov_matrix = np.array([[2.0, 1.0], [1.0, 2.0]])
+    det_val, inv_mat = calculate_covariance_matrix_inverse(cov_matrix)
+    assert np.isclose(det_val, 3.0), "Test failed: Incorrect determinant."
+    assert np.allclose(inv_mat, np.array([[2/3, -1/3], [-1/3, 2/3]])), "Test failed: Incorrect inverse."
+    
+    # Test with a singular matrix
+    singular_matrix = np.array([[1.0, 2.0], [2.0, 4.0]])
+    det_val, inv_mat = calculate_covariance_matrix_inverse(singular_matrix)
+    assert det_val == 0.0, "Test failed: Singular matrix should have zero determinant."
+    assert inv_mat is None, "Test failed: Inverse of singular matrix should be None."
+    
+    # Test with a non-square matrix
+    non_square_matrix = np.array([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
+    try:
+        calculate_covariance_matrix_inverse(non_square_matrix)
+    except ValueError as e:
+        assert str(e) == "The covariance matrix must be square.", "Test failed: Non-square matrix should raise ValueError."
+    
+    # Test with a non-symmetric matrix
+    non_symmetric_matrix = np.array([[1.0, 2.0], [3.0, 4.0]])
+    try:
+        calculate_covariance_matrix_inverse(non_symmetric_matrix)
+    except ValueError as e:
+        assert str(e) == "The covariance matrix must be symmetric.", "Test failed: Non-symmetric matrix should raise ValueError."
+
+test_calculate_covariance_matrix_inverse()
+```
+
+### Explanation of Design Decisions
+
+1. **Input Validation:** The function first checks if the input matrix is square and symmetric, raising a `ValueError` if not. This ensures that the matrix can potentially be inverted.
+2. **Determinant Calculation:** The determinant is calculated using `numpy.linalg.det`. If it is close to zero, the matrix is considered singular or nearly singular, and the function returns `None` for the inverse.
+3. **Inverse Calculation:** The inverse is calculated using `numpy.linalg.inv`. If the matrix is singular or nearly singular, a `LinAlgError` is caught, and the function returns `None` for the inverse.
+4. **Error Handling:** The function prints warnings and errors to inform the user about issues with the matrix. In a production environment, logging would be more appropriate.
+5. **Performance Considerations:** The use of NumPy ensures efficient computation, especially for large matrices.
+6. **Integration:** The function is designed to accept a NumPy array, making it easy to integrate with existing data processing pipelines.
+7. **Security Considerations:** The function does not perform any unnecessary copying of data, minimizing memory usage and potential security risks.
+8. **Scalability:** While the current implementation is single-threaded, it can be adapted to distributed computing environments by leveraging libraries like Dask or integrating with cloud-based services.
+
+This solution provides a robust, efficient, and secure way to handle matrix operations required for financial risk management, ensuring that the system can handle real-world data effectively.

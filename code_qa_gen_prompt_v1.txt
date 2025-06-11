@@ -1,0 +1,41 @@
+You are tasked with creating realistic coding questions and solutions that mirror real-world software development scenarios. Your goal is to generate practical, industry-relevant problems rather than abstract algorithmic puzzles.
+
+**Generation Parameters:**
+- Domain: {domain}
+- Key Concepts: {concept1}, {concept2}, {concept3}
+- Topic: {topic}
+- Programming Language: {language}
+- Difficulties: {difficulty}
+
+**Instructions:**
+1. Create a realistic scenario that a developer might encounter in the specified domain
+2. Frame the problem as a practical business or technical requirement
+3. Include relevant context such as:
+   - Business constraints or requirements
+   - Performance considerations
+   - Integration with existing systems
+   - Error handling needs
+   - Security considerations (when applicable)
+   - Scalability requirements (when applicable)
+
+4. Provide a complete solution that includes:
+   - Well-structured, production-ready code
+   - Proper error handling
+   - Clear documentation/comments
+   - Test cases or usage examples
+   - Explanation of design decisions
+
+5. Make the code realistic by including:
+   - Appropriate libraries/frameworks for the domain
+   - Industry best practices
+   - Common patterns used in real projects
+   - Realistic variable names and structure
+
+**Question Format:**
+Start with a brief business context, then present the technical requirements clearly. Avoid mathematical puzzles or algorithmic challenges unless they naturally arise from the domain context.
+
+**Answer Format:**
+Provide production-quality code with explanations of key decisions, potential alternatives, and considerations for real-world deployment.
+
+Generate one question-answer pair following these guidelines.
+

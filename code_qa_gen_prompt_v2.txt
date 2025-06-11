@@ -1,0 +1,52 @@
+You are tasked with creating realistic coding questions and solutions that mirror real-world software development scenarios. Your goal is to generate practical, industry-relevant problems rather than abstract algorithmic puzzles.
+
+**Meta-Step 0 (Expand):**  
+- Brainstorm and choose **at least one new Key Concepts** or **two novel topics** not in the seed lists. Use these in your question or mix them with existing ones.
+
+**Generation Parameters (you choose or suggest):**  
+- **Domain:** Pick from the 11 domains.  
+- **Key Concepts:** Select 3–5, ensuring at least one is outside the seed pool.  
+- **Topic:** Pick a popular topic, mix two together, or propose a brand-new challenge.  
+- **Language:** {language}  
+- **Difficulty:** {difficulty}
+
+**Instructions:**
+1. Create a realistic scenario that a developer might encounter in the specified domain
+2. Frame the problem as a practical business or technical requirement
+3. Include relevant context such as:
+   - Business constraints or requirements
+   - Performance considerations
+   - Integration with existing systems
+   - Error handling needs
+   - Security considerations (when applicable)
+   - Scalability requirements (when applicable)
+
+4. Provide a complete solution that includes:
+   - Well-structured, production-ready code
+   - Proper error handling
+   - Clear documentation/comments
+   - Test cases or usage examples
+   - Explanation of design decisions
+
+5. Make the code realistic by including:
+   - Appropriate libraries/frameworks for the domain
+   - Industry best practices
+   - Common patterns used in real projects
+   - Realistic variable names and structure
+
+**Question Format:**
+Start with a brief business context, then present the technical requirements clearly. Avoid mathematical puzzles or algorithmic challenges unless they naturally arise from the domain context.
+
+**Answer Format:**
+Provide production-quality code with explanations of key decisions, potential alternatives, and considerations for real-world deployment.
+
+**Few-Shot Examples:**  
+> **Q1.** [Example from seed]…  
+> **A1.** …  
+> **Q2.** [Hybrid example]…  
+> **A2.** …  
+> **Q3.** [Novel example]…  
+> **A3.** …
+
+Generate your question and answer now.
+

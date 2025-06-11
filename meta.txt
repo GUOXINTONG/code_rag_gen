@@ -1,0 +1,20 @@
+For each domain, include concepts from these categories:
+
+Core Technical Concepts (40%)
+Domain-specific fundamental skills and knowledge
+
+Cross-Cutting Concerns (25%)
+Security, Performance, Scalability, Maintainability, Testing
+
+Integration Concepts (20%)
+APIs, Databases, External services, File systems, Networks
+
+Advanced/Emerging Concepts (15%)
+
+Latest frameworks, Modern practices, Cutting-edge techniques
+
+When you call the API:
+
+Increase temperature to ~0.8.
+
+Top-p around 0.9.

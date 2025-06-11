@@ -1,0 +1,116 @@
+Business Context:
+
+You are working as a data engineer in a financial analytics company. One of the company’s core services is portfolio optimization, where clients submit their covariance matrices (which represent asset co-variances) for analysis. A critical step in this pipeline involves computing the inverse of the covariance matrix to determine asset weights under the Markowitz Efficient Frontier model.
+
+To ensure reliability and performance across diverse inputs, your system must:
+
+Verify that the matrix is square and invertible before proceeding.
+
+Return meaningful error messages when the matrix is non-invertible or malformed.
+
+Be performant for matrices up to 1000x1000 in size, though most will be around 100x100.
+
+Be built in Python with appropriate use of NumPy, leveraging vectorized operations.
+
+Include unit tests to verify behavior for both valid and invalid inputs.
+
+🧩 Problem Statement
+Task:
+Implement a Python module matrix_utils.py that exposes the function invert_matrix(matrix: np.ndarray) -> np.ndarray. This function should:
+
+Validate the input matrix:
+
+It must be a square NumPy array.
+
+It must be invertible (i.e., the determinant is not close to zero).
+
+Return the matrix inverse using efficient NumPy operations.
+
+Raise appropriate exceptions when the matrix is invalid or singular.
+
+Include a main block that demonstrates the function on a valid and an invalid matrix.
+
+Include unit tests in a separate function test_invert_matrix() to check:
+
+Successful inversion
+
+Detection of non-square input
+
+Detection of singular matrix
+
+✅ Solution
+
+# matrix_utils.py
+
+import numpy as np
+
+class MatrixInversionError(Exception):
+    """Custom exception for matrix inversion errors."""
+    pass
+
+def invert_matrix(matrix: np.ndarray) -> np.ndarray:
+    """
+    Inverts a square, non-singular matrix.
+
+    Parameters:
+    - matrix (np.ndarray): A 2D NumPy array representing the matrix to invert.
+
+    Returns:
+    - np.ndarray: The inverted matrix.
+
+    Raises:
+    - MatrixInversionError: If the matrix is not square or not invertible.
+    """
+    if not isinstance(matrix, np.ndarray):
+        raise MatrixInversionError("Input must be a NumPy array.")
+
+    if matrix.ndim != 2:
+        raise MatrixInversionError("Input must be a 2D matrix.")
+
+    rows, cols = matrix.shape
+    if rows != cols:
+        raise MatrixInversionError("Matrix must be square.")
+
+    determinant = np.linalg.det(matrix)
+    if np.isclose(determinant, 0.0):
+        raise MatrixInversionError("Matrix is singular or nearly singular and cannot be inverted.")
+
+    return np.linalg.inv(matrix)
+
+def main():
+    # Example: valid matrix
+    try:
+        matrix = np.array([[4, 7], [2, 6]])
+        inverse = invert_matrix(matrix)
+        print("Inverted matrix:\n", inverse)
+    except MatrixInversionError as e:
+        print("Error:", e)
+
+    # Example: singular matrix
+    try:
+        singular = np.array([[1, 2], [2, 4]])
+        invert_matrix(singular)
+    except MatrixInversionError as e:
+        print("Expected error (singular matrix):", e)
+
+def test_invert_matrix():
+    # Valid test case
+    matrix = np.array([[1, 2], [3, 4]])
+    inv = invert_matrix(matrix)
+    np.testing.assert_allclose(np.dot(matrix, inv), np.identity(2), rtol=1e-5)
+
+    # Non-square matrix
+    try:
+        invert_matrix(np.array([[1, 2, 3], [4, 5, 6]]))
+    except MatrixInversionError as e:
+        assert str(e) == "Matrix must be square."
+
+    # Singular matrix
+    try:
+        invert_matrix(np.array([[1, 2], [2, 4]]))
+    except MatrixInversionError as e:
+        assert "singular" in str(e)
+
+if __name__ == "__main__":
+    main()
+    test_invert_matrix()

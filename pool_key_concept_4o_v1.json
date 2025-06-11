@@ -1,0 +1,114 @@
+{
+    "enhancedKeyConceptsPool": {
+      "BP": {
+        "definition": "Basic programming involves fundamental concepts and skills to write simple computer programs. This typically includes understanding data types, variables, control structures, functions, and basic input/output operations.",
+        "keyConcepts": [
+          "Variables & Data Types",
+          "Control Flow (if/else, loops)",
+          "Functions & Procedures",
+          "I/O Operations (console, file)",
+          "Error Handling & Exceptions"
+        ]
+      },
+      "AP": {
+        "definition": "Advanced programming involves developing complex software solutions and focuses on creating efficient, scalable, and robust applications while implementing sophisticated algorithms, data structures, and design patterns.",
+        "keyConcepts": [
+          "Object-Oriented Design (classes, inheritance, polymorphism)",
+          "Design Patterns (Factory, Singleton, Observer, Strategy)",
+          "Concurrency & Multithreading",
+          "Performance Optimization",
+          "Modularization & Packaging"
+        ]
+      },
+      "SE": {
+        "definition": "Software engineering covers the design, development, testing, and maintenance of software systems, and includes tasks of requirements analysis, software architecture design, coding, quality assurance, and project management.",
+        "keyConcepts": [
+          "Requirements Gathering & Specification",
+          "Software Architecture (MVC, Microservices, Layered)",
+          "Version Control (Git workflows)",
+          "Testing Strategies (unit, integration, TDD)",
+          "CI/CD Pipelines & DevOps"
+        ]
+      },
+      "DP": {
+        "definition": "Data analysis is the cleaning, processing, and analysis of collected data to discover meaningful patterns and relationships to make data-driven decisions.",
+        "keyConcepts": [
+          "Data Cleaning & Preprocessing",
+          "Exploratory Data Analysis (EDA)",
+          "Statistical Inference & Hypothesis Testing",
+          "Data Visualization Principles",
+          "ETL (Extract-Transform-Load)"
+        ]
+      },
+      "MA": {
+        "definition": "Mathematical problems involve solving various problems through mathematical methods and theories, covering multiple fields such as algebra, geometry, calculus, number theory, probability, and statistics.",
+        "keyConcepts": [
+          "Algebraic Manipulations",
+          "Calculus (differentiation, integration)",
+          "Linear Algebra (vectors, matrices)",
+          "Probability Theory & Distributions",
+          "Numerical Methods"
+        ]
+      },
+      "DW": {
+        "definition": "Desktop development encompasses a wide range of programming languages, frameworks, and tools to design, build, and maintain user-friendly interfaces and robust backend systems.",
+        "keyConcepts": [
+          "UI Frameworks (React, Angular, WPF)",
+          "HTTP & RESTful APIs",
+          "State Management",
+          "Client-Server Architecture",
+          "Packaging & Deployment"
+        ]
+      },
+      "ML": {
+        "definition": "Machine learning algorithms are developed to learn from data for tasks such as classification, prediction, and pattern recognition.",
+        "keyConcepts": [
+          "Supervised vs. Unsupervised Learning",
+          "Model Evaluation Metrics (accuracy, precision, recall)",
+          "Feature Engineering",
+          "Training & Validation Pipelines",
+          "Hyperparameter Tuning"
+        ]
+      },
+      "SC": {
+        "definition": "Scientific computing solves complex scientific and engineering problems, which encompasses the tasks of numerical analysis, and high-performance computing to simulate, model, and analyze phenomena across various scientific disciplines.",
+        "keyConcepts": [
+          "Numerical Linear Algebra",
+          "Differential Equation Solvers",
+          "High-Performance Parallelism (MPI, OpenMP)",
+          "Simulation Techniques",
+          "Domain-Specific Libraries (e.g., SciPy, PETSc)"
+        ]
+      },
+      "DB": {
+        "definition": "Database includes tasks such as insertion, querying, updating, and deletion, and these tasks are typically performed using query languages such as SQL to ensure efficient storage and retrieval of data.",
+        "keyConcepts": [
+          "Relational Schema Design",
+          "CRUD Operations & Transactions",
+          "SQL Query Optimization",
+          "Indexing & Partitioning",
+          "ACID vs. BASE Principles"
+        ]
+      },
+      "MM": {
+        "definition": "Multimedia involves processing and manipulating various forms of content, including text, images, audio, and video.",
+        "keyConcepts": [
+          "Image Processing (filters, transforms)",
+          "Audio Signal Processing",
+          "Video Encoding & Streaming",
+          "Media Metadata Standards",
+          "GUI for Media Playback"
+        ]
+      },
+      "OS": {
+        "definition": "Operating system includes tasks such as memory management, process scheduling, file system management, and device control, which aims to manage computer hardware and software resources.",
+        "keyConcepts": [
+          "Process & Thread Scheduling",
+          "Memory Management (paging, segmentation)",
+          "File Systems & I/O Drivers",
+          "Interprocess Communication",
+          "Kernel Modules & System Calls"
+        ]
+      }
+    }
+  }

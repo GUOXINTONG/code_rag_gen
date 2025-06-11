@@ -1,0 +1,182 @@
+Question: Financial Portfolio Risk Adjustment System
+
+Business Context:  
+You work for a quantitative finance firm that manages investment portfolios. To optimize asset allocation, your team models portfolio risk using a covariance matrix derived from historical asset returns. This matrix must be inverted to solve for optimal weights in the portfolio adjustment equation. Given the sensitivity of financial models to matrix invertibility, robust handling of singular or ill-conditioned matrices is critical to prevent faulty trades. The solution must integrate with existing risk-calculation pipelines that pass matrices as JSON payloads.
+
+Technical Requirements:  
+Implement a Python class PortfolioRiskCalculator with the following specifications:  
+Method compute_adjustment:  
+
+Input: covariance_matrix (2D list representing an n x n covariance matrix), exposure_vector (list of length n)  
+
+Output: Adjusted portfolio weights (NumPy array of length n)  
+
+Formula: Solve weights = covariance_matrix⁻¹ × exposure_vector  
+Constraints & Error Handling:  
+
+Validate that covariance_matrix is square and matches the size of exposure_vector.  
+
+Check matrix invertibility using determinant thresholds. Raise domain-specific errors for singular matrices.  
+
+Use a tolerance of 1e-10 to identify near-singular matrices (common in correlated asset scenarios).  
+Integration & Security:  
+
+Parse inputs from JSON payloads (simulated via dictionaries).  
+
+Prevent misuse by validating matrix symmetry (financial covariance matrices must be symmetric).  
+Performance & Scalability:  
+
+Handle matrices up to 100x100 efficiently (common in mid-sized portfolios).  
+
+Use matrix decomposition for numerical stability (avoid naive inverse methods).  
+
+Solution: Production-Grade Implementation
+
+import numpy as np
+from typing import List, Dict, Union
+
+class PortfolioRiskCalculator:
+    """
+    Computes portfolio adjustments using covariance matrix inversion.
+    
+    Key Design Decisions:
+Matrix Decomposition: Use LU decomposition for numerical stability 
+
+       (superior to direct inversion for medium-sized matrices).
+Thresholding: Near-singular matrices identified via determinant magnitude 
+
+       (safer than condition number for financial data).
+Symmetry Check: Ensures input aligns with covariance matrix properties.
+
+Error Hierarchy: Domain-specific errors (e.g., SingularMatrixError) for 
+
+       better integration into trading pipelines.
+    """
+    
+    def __init__(self, symmetry_tolerance: float = 1e-8):
+        self.symmetry_tolerance = symmetry_tolerance  # Tolerance for symmetry check
+
+    def _validate_inputs(self, matrix: np.ndarray, vector: np.ndarray) -> None:
+        """Validate matrix and vector dimensions and symmetry."""
+= matrix.shape[0]
+
+        if matrix.shape != (n, n):
+            raise ValueError("Covariance matrix must be square")
+        if len(vector) != n:
+            raise ValueError("Vector length must match matrix dimension")
+        if not np.allclose(matrix, matrix.T, atol=self.symmetry_tolerance):
+            raise ValueError("Covariance matrix must be symmetric")
+
+    def compute_adjustment(
+        self, covariance_matrix: List[List[float]], exposure_vector: List[float]
+    ) -> np.ndarray:
+        """
+        Computes portfolio weights via weights = covariance_matrix⁻¹ × exposure_vector.
+        
+        Args:
+            covariance_matrix: Square 2D list representing asset covariance
+            exposure_vector: List of current portfolio exposures
+            
+        Returns:
+            Optimal adjustment weights as NumPy array
+            
+        Raises:
+            SingularMatrixError: If matrix is non-invertible (determinant near zero)
+        """
+        matrix = np.array(covariance_matrix, dtype=np.float64)
+        vector = np.array(exposure_vector, dtype=np.float64)
+        
+        # Input validation
+        self._validate_inputs(matrix, vector)
+        
+        # Check singularity via determinant
+        det = np.linalg.det(matrix)
+        if abs(det) < 1e-10:
+            raise SingularMatrixError("Covariance matrix is singular or near-singular")
+        
+        # Solve using LU decomposition (efficient and stable)
+        weights = np.linalg.solve(matrix, vector)
+        return weights
+
+    def process_payload(self, payload: Dict[str, Union[List[List[float]], List[float]]]) -> List[float]:
+        """
+        Integrates with JSON-based input pipeline. Example payload:
+"covariance_matrix": [[1.0, 0.2, -0.1], [0.2, 1.0, 0.3], [-0.1, 0.3, 1.0]],
+
+            "exposure_vector": [0.5, -0.2, 0.1]
+"""
+
+        try:
+            weights = self.compute_adjustment(
+                payload["covariance_matrix"], payload["exposure_vector"]
+            )
+            return weights.tolist()  # Convert to list for JSON serialization
+        except (ValueError, SingularMatrixError) as e:
+            # Log error for monitoring systems
+            print(f"Risk calculation failed: {str(e)}")
+            raise  # Reraise for upstream handling
+
+class SingularMatrixError(Exception):
+    """Domain-specific exception for financial pipeline integration."""
+Test Cases =
+
+if __name__ == "__main__":
+    # Test 1: Valid inputs
+    calc = PortfolioRiskCalculator()
+    matrix = [[2.0, 1.0], [1.0, 2.0]]  # Invertible matrix
+    vector = [0.3, -0.1]
+    weights = calc.compute_adjustment(matrix, vector)
+    print("Test 1 Weights:", weights)  # Expected: [0.2333, -0.1667] (approx)
+    
+    # Test 2: Non-square matrix
+    try:
+        calc.compute_adjustment([[1, 2, 3], [4, 5, 6]], [1, 2])  # 2x3 matrix
+    except ValueError as e:
+        print("Test 2 Passed:", e)
+    
+    # Test 3: Singular matrix
+    singular_matrix = [[1, 1], [1, 1]]  # Determinant = 0
+    try:
+        calc.compute_adjustment(singular_matrix, [1, 2])
+    except SingularMatrixError as e:
+        print("Test 3 Passed:", e)
+    
+    # Test 4: JSON payload integration
+    payload = {
+        "covariance_matrix": [[5, -2, 0], [-2, 3, 1], [0, 1, 4]],
+        "exposure_vector": [1, 0, -1]
+result = calc.process_payload(payload)
+
+    print("Test 4 Payload Result:", result)  # Expected: [0.31, 0.33, -0.33] (approx)
+
+Key Explanations:
+Numerical Stability:
+
+Uses np.linalg.solve() (LU decomposition) instead of np.linalg.inv() to avoid unnecessary matrix inversion and reduce floating-point errors.
+Domain-Specific Validation:
+
+Symmetry check ensures the matrix adheres to covariance matrix properties.
+
+Determinant threshold (1e-10) detects near-singular matrices common with highly correlated assets.
+Error Handling:
+
+Custom SingularMatrixError enables trading systems to trigger fallback strategies.
+
+Dimension validation prevents malformed data from propagating.
+Integration Readiness:
+
+process_payload method accepts JSON-like structures for seamless pipeline integration.
+
+Type conversions (np.array → list) ensure JSON serialization compatibility.
+Scalability:
+
+LU decomposition efficiently handles matrices up to 100x100 (typical for portfolio models).
+
+Alternatives Considered:  
+Cholesky Decomposition: Faster for symmetric matrices but fails if the matrix is not positive definite (not guaranteed in stressed markets).  
+
+Condition Number: More robust than determinant for singularity checks but computationally heavier for medium-sized matrices.  
+
+Pseudo-Inverse: Would allow non-invertible matrices but introduces misleading adjustments in financial contexts.  
+
+This solution prioritizes accuracy and safety for financial applications while adhering to industry best practices in numerical computing.
